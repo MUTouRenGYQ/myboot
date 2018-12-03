@@ -13,7 +13,7 @@ public class ViewController {
 
     @RequestMapping("/index")
      public String hello(){
-        return "hello springBoot ";
+        return "hello springBoot";
      }
 
 }
