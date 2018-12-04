@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.myboot.dao.ALoginUser" >
+   <select id="selectALoginUser" resultType="com.spring.myboot.entity.LoginEntity" parameterType="com.spring.myboot.entity.LoginEntity" >
+       SELECT UserName,PassWord,AccountType,UserCode FROM A_LoginUser WHERE 1=1
+       <if test="username != null" >
+           UserName = #{username}
+       </if>
+       <if test="password != null" >
+           PassWord = #{password}
+       </if>
+    </select>
+</mapper>
