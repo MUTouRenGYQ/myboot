@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.myboot.dao.AMenuUrlMapper" >
+    <select id="selectAMenuUrl" resultType="com.spring.myboot.entity.AMenuUrlEntity">
+        WITH CTE_CHILD(MenuCode,PMenuCode,MenuUrl,MenuName,MenuIcon,MenuType,MenuSort,IsEndable,MenuLevel)
+        AS
+        (
+        SELECT MenuCode,PMenuCode,MenuUrl,MenuName,MenuIcon,MenuType,MenuSort,IsEndable,0 AS MenuLevel FROM A_MenuUrl  WHERE MenuCode = '00001'
+        UNION ALL
+        SELECT A.MenuCode,A.PMenuCode,A.MenuUrl,A.MenuName,A.MenuIcon,A.MenuType,A.MenuSort,A.IsEndable,B.MenuLevel+1 FROM A_MenuUrl A
+        INNER JOIN CTE_CHILD b on ( A.PMenuCode=B.MenuCode)
+        )
+        SELECT MenuCode,PMenuCode,MenuUrl,MenuName,MenuIcon,MenuType,MenuSort,IsEndable,MenuLevel FROM CTE_CHILD
+
+        WHERE PMenuCode != -1
+
+        ORDER BY MenuSort ASC;
+    </select>
+</mapper>
